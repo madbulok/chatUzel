@@ -1,5 +1,6 @@
 package com.app.jedai.uzelchat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         final Firebase ref = new Firebase("https://luminous-heat-2488.firebaseio.com/chat");
 
+        Intent intent = getIntent();
+        final String name = intent.getStringExtra("name");
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatMessage chat = new ChatMessage("artem", messageTxt.getText().toString());
+                ChatMessage chat = new ChatMessage(name, messageTxt.getText().toString());
                 ref.push().setValue(chat);
                 messageTxt.setText("");
             }
